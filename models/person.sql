@@ -1,0 +1,1 @@
+select description from {{source('sources', 'person')}}

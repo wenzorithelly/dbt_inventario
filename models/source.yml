@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: 'sources'
+    database: postgres
+    schema: public
+    tables:
+      - name: person
+      - name: affiliate
