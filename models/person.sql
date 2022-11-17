@@ -34,5 +34,3 @@ from {{source('sources', 'person')}} p
     left join nominal n on n.client_id = p.id
 where rg not ilike all(array['%teste%', '%test%'])
     or name !~* 'teste'
-
-    limit 2000
