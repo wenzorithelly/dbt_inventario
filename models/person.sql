@@ -12,13 +12,17 @@ with
             cast(created_at as date) created_at,
             name,
             email,
-            regexp_replace(phone,'\D','','g') phone,
+            cast(regexp_replace(phone,'\D','','g') as numeric) phone,
+            case
+                when length(regexp_replace(cpf,'\D','','g')) = 0 then null
+                else cast(regexp_replace(cpf,'\D','','g') as numeric) 
+            end cpf,
             active,
             password,
             address,
+            address::json->'state' as state,
             campaign,
-            regexp_replace(cpf,'\D','','g') cpf,
-            match_description[9] deceased_childs_under_18,
+            match_description[9] childs_under_18,
             match_description[18] disagreement_between_parties,
             match_description[24] testment,
             match_description[35] time_to_start,
@@ -36,4 +40,6 @@ with
         where rg not ilike all(array['%teste%', '%test%'])
             or name !~* 'teste' )
 
-select * from nominal
+select
+    *
+from nominal
