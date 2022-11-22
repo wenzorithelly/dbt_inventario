@@ -36,6 +36,7 @@ select
         when state like 'Rondônia' then 'RO'
         when state like 'Paraíba' then 'PB'
         when state like 'Rio Grande do Norte' then 'RS'
+        when state like '' then null
         else state
     end as state_updated
 from nominal
