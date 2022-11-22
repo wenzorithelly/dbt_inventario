@@ -1,3 +1,7 @@
+{{config(materialized='incremental', unique_key='id')}}
+
+{{% }}
+
 with
     cte as (
         select
@@ -20,7 +24,7 @@ with
             active,
             password,
             address,
-            address::json->'state' as state,
+            s.state_updated as state,
             campaign,
             match_description[9] childs_under_18,
             match_description[18] disagreement_between_parties,
@@ -37,6 +41,7 @@ with
             regexp_replace(rg,'\D','','g') rg
         from {{source('sources', 'person')}} p
             left join cte on cte.client_id = p.id
+            left join {{ref('states')}} s on s.id = p.id
         where rg not ilike all(array['%teste%', '%test%'])
             or name !~* 'teste' )
 
