@@ -12,8 +12,8 @@ with
         select 
             p.id,
             cast(created_at as date) created_at,
-            name,
-            email,
+            cast(name as text) name,
+            cast(email as text) email,
             case
                 when length(regexp_replace(phone,'\D','','g')) = 0 then null
                 else cast(regexp_replace(phone,'\D','','g') as numeric) end phone,
@@ -34,10 +34,10 @@ with
             d.decision_maker,
             d.resources,
             d.payment,
-            deceased,
+            cast(deceased as text) deceased,
             labels,
-            marital_status,
-            occupation,
+            cast(marital_status as text) marital_status,
+            cast(occupation as text) occupation,
             case
                 when length(regexp_replace(rg,'\D','','g')) = 0 then null
                 else cast(regexp_replace(rg,'\D','','g') as numeric) end rg
