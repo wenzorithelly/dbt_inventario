@@ -1,4 +1,4 @@
-{{config(materialized='incremental', unique_key='id')}}
+{{config(materialized='table', sort='timestamp', dist='user_id')}}
 
 with
     cte as (
