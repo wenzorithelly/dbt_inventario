@@ -12,4 +12,4 @@ select
     state,
     occupation,
     marital_status
-from {{ref('person')}}
+from {{ref('stg_person')}}

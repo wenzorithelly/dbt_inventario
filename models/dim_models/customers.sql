@@ -13,4 +13,4 @@ select
     resources,
     payment,
     deceased
-from {{ref('person')}}
+from {{ref('stg_person')}}

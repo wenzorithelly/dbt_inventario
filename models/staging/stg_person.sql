@@ -1,5 +1,3 @@
-{{config(materialized='table', sort='timestamp', dist='user_id')}}
-
 with
     cte as (
         select
@@ -65,7 +63,6 @@ with
             password,
 
             -- address
-            address,
             a.state,
             cast(a.zipcode as numeric) zipcode,
             a.full_address,
@@ -94,7 +91,6 @@ with
         from {{source('sources', 'person')}} p
             left join cte on cte.client_id = p.id
             left join address a on a.client_id = p.id
-            left join {{ref('states')}} s on s.id = p.id
             left join {{ref('description')}} d on d.id = p.id
         where rg not ilike all(array['%teste%', '%test%'])
             or name !~* 'teste' )
