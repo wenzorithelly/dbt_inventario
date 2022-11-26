@@ -7,9 +7,10 @@ select
     phone,
     cpf,
     rg,
-    active,
-    address,
     state,
+    zipcode,
+    full_address,
+    city,
     occupation,
     marital_status
 from {{ref('stg_person')}}
