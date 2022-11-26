@@ -7,10 +7,13 @@ with
             string_to_array(description, ' ') as match_description
         from {{source('sources', 'person')}}
     ),
+
     address as (
         select
             id client_id,
             json_extract_path_text(address, 'zipcode') zipcode,
+            json_extract_path_text(address, 'full_address') full_address,
+            json_extract_path_text(address, 'city') city,
             case 
                 when json_extract_path_text(address, 'state') like 'Rio de Janeiro' then 'RJ'
                 when json_extract_path_text(address, 'state') like 'Distrito Federal' then 'DF'
@@ -60,8 +63,15 @@ with
             end cpf,
             active,
             password,
+
+            -- address
             address,
             a.state,
+            cast(a.zipcode as numeric) zipcode,
+            a.full_address,
+            a.city,
+
+            -- description
             cast(campaign as text) campaign,
             d.childs_under_18,
             d.disagreement_between_parties,
@@ -73,11 +83,14 @@ with
             d.payment,
             cast(deceased as text) deceased,
             labels,
+
+            -- customers info
             cast(marital_status as text) marital_status,
             cast(occupation as text) occupation,
             case
                 when length(regexp_replace(rg,'\D','','g')) = 0 then null
                 else cast(regexp_replace(rg,'\D','','g') as numeric) end rg
+
         from {{source('sources', 'person')}} p
             left join cte on cte.client_id = p.id
             left join address a on a.client_id = p.id
