@@ -7,6 +7,13 @@ with
             string_to_array(description, ' ') as match_description
         from {{source('sources', 'person')}}
     ),
+    address as (
+        select
+            id client_id,
+            json_extract_path_text(address, 'zipcode') zipcode,
+            json_extract_path_text(address, 'state') state
+
+    )
 
     nominal as (
         select 
@@ -25,7 +32,7 @@ with
             password,
             address,
             s.state_updated as state,
-            campaign,
+            cast(campaign as text) campaign,
             d.childs_under_18,
             d.disagreement_between_parties,
             d.testment,
