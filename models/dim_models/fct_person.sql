@@ -8,6 +8,7 @@ select
     phone,
     cpf,
     rg,
+    labels,
     active,
     state,
     campaign, 

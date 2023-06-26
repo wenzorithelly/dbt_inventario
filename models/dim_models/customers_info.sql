@@ -1,6 +1,7 @@
 {{config(materialized='table', sort='timestamp', dist='user_id')}}
 
 select 
+    id,
     name,
     created_at,
     email,

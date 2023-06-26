@@ -31,7 +31,7 @@ with
                 when json_extract_path_text(address, 'state') like 'Rio Grande do Sul' then 'RS'
                 when json_extract_path_text(address, 'state') like 'Sergipe' then 'SE'
                 when json_extract_path_text(address, 'state') like 'Santa Catarina' then 'SC'
-                when json_extract_path_text(address, 'state') like 'Pará' then 'PR'
+                when json_extract_path_text(address, 'state') like 'Pará' then 'PA'
                 when json_extract_path_text(address, 'state') like 'Piauí' then 'PI'
                 when json_extract_path_text(address, 'state') like 'Amapá' then 'AP'
                 when json_extract_path_text(address, 'state') like 'Espírito Santo' then 'ES'
@@ -39,7 +39,7 @@ with
                 when json_extract_path_text(address, 'state') like 'Brasília' then 'DF'
                 when json_extract_path_text(address, 'state') like 'Rondônia' then 'RO'
                 when json_extract_path_text(address, 'state') like 'Paraíba' then 'PB'
-                when json_extract_path_text(address, 'state') like 'Rio Grande do Norte' then 'RS'
+                when json_extract_path_text(address, 'state') like 'Rio Grande do Norte' then 'RN'
                 when json_extract_path_text(address, 'state') like '' then null
                 else json_extract_path_text(address, 'state')
             end as state
